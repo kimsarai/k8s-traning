@@ -1,12 +1,14 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: statefulset-ondelete
+  name: statefulset-partition
 spec:
-  serviceName: statefulset-ondelete
+  serviceName: statefulset-partition
   updateStrategy:
-    type: OnDelete
-  replicas: 3
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 3
+  replicas: 5
   selector:
     matchLabels:
       app: nginx-app
@@ -36,6 +38,8 @@ spec:
   ports:
     - protocol: TCP
       port: 8000
-      name: statfulset-ondelete
+      name: statefulset-partition
   clusterIP: None
 
+
+# partionで指定した数以下はアップデートしない。(今回は3なのでpod0～2までは変更されない)

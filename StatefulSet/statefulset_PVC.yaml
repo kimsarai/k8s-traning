@@ -29,9 +29,9 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: nginx-statfulset
+  name: nginx-statefulset
 spec:
-  serviceName: nginx-statfulset
+  serviceName: nginx-statefulset
   replicas: 3
   selector:
     matchLabels:
@@ -76,7 +76,7 @@ spec:
   ports:
     - protocol: TCP
       port: 8000
-      name: nginx-statfulset
+      name: nginx-statefulset
   clusterIP: None
 
 

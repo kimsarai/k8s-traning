@@ -37,7 +37,7 @@ spec:
   ports:
     - protocol: TCP
       port: 8000
-      name: statfulset-parallel
+      name: statefulset-parallel
   clusterIP: None
 
 # Podが並列に起動する(statefulsetは順序的にPodが作成される性質を持っている)
