@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-ondelete
+spec:
+  serviceName: statefulset-ondelete
+  updateStrategy:
+    type: OnDelete
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-app
+  template:
+    metadata:
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.16
+        ports:
+        - containerPort: 8000
+          name: web
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-svc
+spec:
+  selector:
+    app: nginx-app
+  ports:
+    - protocol: TCP
+      port: 8000
+      name: statfulset-ondelete
+  clusterIP: None
+
