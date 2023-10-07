@@ -1,24 +1,24 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: DaemonSet
 metadata:
-  name: statefulset
+  name: ds-ondelete
 spec:
-  serviceName: statefulset
-  replicas: 3
   selector:
     matchLabels:
-      app: nginx-app
+      app: fluented-app
+  updateStrategy:
+    type: OnDelete
   template:
     metadata:
       labels:
-        app: nginx-app
+        app: fluented-app
     spec:
       containers:
-      - name: nginx-container
-        image: nginx:1.16:11
+      - name: fluented-container
+        image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
         ports:
         - containerPort: 8000
-          name: web
+          name: flunted
         resources:
           requests:
             memory: "64Mi"
@@ -27,12 +27,12 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: nginx-svc
+  name: fluented-svc
 spec:
   selector:
-    app: nginx-app
+    app: fluented-app
   ports:
     - protocol: TCP
       port: 8000
-      name: statefulset
+      name: ds-ondelete
   clusterIP: None
