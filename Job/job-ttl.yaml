@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-ttl
+spec:
+  ttlSecondsAfterFinished: 60
+  completions: 1
+  parallelism: 1
+  backoffLimit: 10
+  template:
+    spec:
+      containers:
+      - name: job-container
+        image: alpine
+        command: ["sh", "-c"]
+        args:
+        - |
+          sleep 3
+      restartPolicy: Never
+
+
+# ttlで指定した後の時間にpodが自動的に削除される

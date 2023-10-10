@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: parallel-job
+spec:
+  ttlSecondsAfterFinished: 10
+  completions: 10
+  parallelism: 2
+  backoffLimit: 10
+  template:
+    spec:
+      containers:
+      - name: job-container
+        image: alpine
+        command: ["sh", "-c"]
+        args:
+        - |
+          sleep 3
+      restartPolicy: Never
+
