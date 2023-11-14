@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-configmap
+data:
+  # init.sqlファイルをしてコンテナ内にマッピングされる。
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS app;
+
