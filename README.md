@@ -1,4 +1,5 @@
 # Kubernetesの学習
+
 ## workloads
 - DaemonSet
 - Job
@@ -6,7 +7,7 @@
 - Dynamic-provisioning
 
 ## Persistent Volume
-- nfs
+- nfsの実装
 
 ## secret/configmap
-- DB
+- DBの実装
